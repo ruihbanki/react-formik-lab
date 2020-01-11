@@ -4,19 +4,38 @@ import { Grid, Button } from "@material-ui/core";
 import TextField from "../components/TextField/TextField";
 import UseFormikForm from "../components/UseFormikForm/UseFormikForm";
 
+const initialValues = {
+  name: "",
+  nickname: ""
+};
+
+function validate(values) {
+  const errors = {};
+  if (!values.name) {
+    errors.name = "Required";
+  }
+  console.log("validate errros", values, errors);
+
+  return errors;
+}
+
 const FormFinalResultDemo = React.memo(() => {
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      nickname: ""
-    },
+    initialValues,
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
       formik.setSubmitting(false);
     },
     validate,
-    validateOnMount: false
+    validateOnMount: true
   });
+
+  const handleCepBlur = () => {
+    formik.setValues({
+      ...formik.values,
+      address: `Address of CEP ${formik.values.cep}`
+    });
+  };
 
   return (
     <div>
@@ -32,6 +51,12 @@ const FormFinalResultDemo = React.memo(() => {
             </Grid>
             <Grid item xs={2}>
               <TextField name="age" label="Age" />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField name="cep" label="CEP" onBlur={handleCepBlur} />
+            </Grid>
+            <Grid item xs={2}>
+              <TextField name="address" label="Address" />
             </Grid>
             <Grid item xs={2}>
               <TextField name="email" label="Email" />
@@ -54,13 +79,5 @@ const FormFinalResultDemo = React.memo(() => {
     </div>
   );
 });
-
-function validate(values) {
-  const errors = {};
-  if (!values.name) {
-    errors.name = "Required";
-  }
-  return errors;
-}
 
 export default FormFinalResultDemo;
