@@ -1,20 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FormikContext, Form } from "formik";
+import { FormikContext } from "formik";
 
 const UseFormikForm = React.memo(props => {
   const { formik, children } = props;
   return (
-    <FormikContext.Provider value={formik}>
-      <Form noValidate>{children}</Form>
-    </FormikContext.Provider>
+    <FormikContext.Provider value={formik}>{children}</FormikContext.Provider>
   );
 });
 
 UseFormikForm.propTypes = {
-  formik: PropTypes.object
+  formik: PropTypes.object.isRequired
 };
-
-UseFormikForm.defaultProps = {};
 
 export default UseFormikForm;

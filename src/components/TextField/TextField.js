@@ -1,7 +1,41 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { TextField as MuiTextField } from "@material-ui/core";
 import { FastField } from "formik";
+
+const TextFieldMemo = React.memo(props => {
+  const { field, meta, value: valueProp, onChange, onBlur, ...others } = props;
+  const value = valueProp || field.value || "";
+  const { touched, error } = meta;
+  const helperText = touched ? error : "";
+
+  const handleChange = useCallback(event => {
+    field.onChange(event);
+    if (onChange) {
+      onChange(event);
+    }
+  }, []);
+
+  const handleBlur = useCallback(event => {
+    field.onBlur(event);
+    if (onBlur) {
+      onBlur(event);
+    }
+  }, []);
+
+  return (
+    <MuiTextField
+      autoComplete="off"
+      fullWidth
+      value={value}
+      helperText={helperText}
+      error={touched && Boolean(error)}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      {...others}
+    />
+  );
+});
 
 const TextField = props => {
   const { name, ...others } = props;
@@ -9,22 +43,8 @@ const TextField = props => {
   return (
     <FastField name={name}>
       {({ field, meta }) => {
-        console.log(field);
-        const { value = "", onChange, onBlur } = field;
-        const { touched, error } = meta;
-        const helperText = touched ? error : "";
         return (
-          <MuiTextField
-            autoComplete="off"
-            fullWidth
-            name={name}
-            value={value}
-            helperText={helperText}
-            error={Boolean(error)}
-            onChange={onChange}
-            onBlur={onBlur}
-            {...others}
-          />
+          <TextFieldMemo {...others} name={name} field={field} meta={meta} />
         );
       }}
     </FastField>
