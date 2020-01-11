@@ -1,22 +1,32 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import { TextField as MuiTextField } from "@material-ui/core";
-import { FastField } from "formik";
+import { useField } from "formik";
 
 const TextFieldMemo = React.memo(props => {
+  return <MuiTextField {...props} />;
+});
+
+const TextField = props => {
   const {
-    field,
-    meta,
-    form,
+    name,
+    required,
     value: valueProp,
     onChange,
     onBlur,
     ...others
   } = props;
-  const value = valueProp || field.value || "";
-  const { touched, error } = meta;
-  const helperText = touched || form.validateOnMount ? error : "";
-  const showError = error && (touched || form.validateOnMount);
+
+  const validate = useCallback(
+    value => {
+      if (required && !value) {
+        return "REQUIRED_FIELD";
+      }
+    },
+    [required]
+  );
+
+  const [field, meta, helpers] = useField({ name, validate });
 
   const handleChange = useCallback(
     event => {
@@ -25,7 +35,7 @@ const TextFieldMemo = React.memo(props => {
         onChange(event);
       }
     },
-    [field, onChange]
+    [onChange]
   );
 
   const handleBlur = useCallback(
@@ -35,47 +45,26 @@ const TextFieldMemo = React.memo(props => {
         onBlur(event);
       }
     },
-    [field, onBlur]
+    [onBlur]
   );
 
+  const value = valueProp || field.value || "";
+  const helperText = meta.touched || helpers.validateOnMount ? meta.error : "";
+  const error = meta.error && (meta.touched || helpers.validateOnMount);
+
   return (
-    <MuiTextField
+    <TextFieldMemo
       autoComplete="off"
       fullWidth
-      value={value}
+      error={error}
       helperText={helperText}
-      error={showError}
+      name={name}
+      required={required}
+      {...others}
+      value={value}
       onChange={handleChange}
       onBlur={handleBlur}
-      {...others}
     />
-  );
-});
-
-const TextField = props => {
-  const { name, required, ...others } = props;
-
-  const handleValidate = useCallback(value => {
-    if (required && !value) {
-      return "required";
-    }
-  }, []);
-
-  return (
-    <FastField name={name} validate={handleValidate}>
-      {({ field, form, meta }) => {
-        return (
-          <TextFieldMemo
-            {...others}
-            name={name}
-            required={required}
-            field={field}
-            form={form}
-            meta={meta}
-          />
-        );
-      }}
-    </FastField>
   );
 };
 
