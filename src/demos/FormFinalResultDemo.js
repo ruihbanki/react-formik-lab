@@ -15,7 +15,7 @@ const FormFinalResultDemo = React.memo(() => {
       formik.setSubmitting(false);
     },
     validate,
-    validateOnMount: true
+    validateOnMount: false
   });
 
   // console.log(formik);
