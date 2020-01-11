@@ -53,15 +53,22 @@ const TextFieldMemo = React.memo(props => {
 });
 
 const TextField = props => {
-  const { name, ...others } = props;
+  const { name, required, ...others } = props;
+
+  const handleValidate = useCallback(value => {
+    if (required && !value) {
+      return "required";
+    }
+  }, []);
 
   return (
-    <FastField name={name}>
+    <FastField name={name} validate={handleValidate}>
       {({ field, form, meta }) => {
         return (
           <TextFieldMemo
             {...others}
             name={name}
+            required={required}
             field={field}
             form={form}
             meta={meta}

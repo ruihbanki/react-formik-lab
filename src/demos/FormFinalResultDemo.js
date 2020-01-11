@@ -27,7 +27,7 @@ const FormFinalResultDemo = React.memo(() => {
       formik.setSubmitting(false);
     },
     validate,
-    validateOnMount: true
+    validateOnMount: false
   });
 
   const handleCepBlur = () => {
@@ -50,7 +50,7 @@ const FormFinalResultDemo = React.memo(() => {
               <TextField name="nickname" label="Nickname" />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="age" label="Age" />
+              <TextField name="age" label="Age" required />
             </Grid>
             <Grid item xs={2}>
               <TextField name="cep" label="CEP" onBlur={handleCepBlur} />
