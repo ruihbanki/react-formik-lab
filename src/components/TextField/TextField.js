@@ -52,6 +52,10 @@ const TextField = props => {
   const helperText = meta.touched || helpers.validateOnMount ? meta.error : "";
   const error = meta.error && (meta.touched || helpers.validateOnMount);
 
+  useEffect(() => {
+    helpers.setError(validate(value));
+  }, [required]);
+
   return (
     <TextFieldMemo
       autoComplete="off"
