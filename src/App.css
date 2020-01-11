@@ -1,0 +1,9 @@
+.App {
+  display: flex;
+}
+.menu {
+  width: 300px;
+}
+.content {
+  flex-grow: 1;
+}
