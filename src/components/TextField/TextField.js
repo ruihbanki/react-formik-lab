@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { TextField as MuiTextField } from "@material-ui/core";
 import { useField } from "formik";
 
-const TextFieldMemo = React.memo(props => {
-  return <MuiTextField {...props} />;
-});
+const TextFieldMemo = React.memo(props => <MuiTextField {...props} />);
 
 const TextField = props => {
   const {
     name,
     required,
+    requiredMessage,
     value: valueProp,
     onChange,
     onBlur,
@@ -20,13 +19,13 @@ const TextField = props => {
   const validate = useCallback(
     value => {
       if (required && !value) {
-        return "REQUIRED_FIELD";
+        return requiredMessage;
       }
     },
     [required]
   );
 
-  const [field, meta, helpers] = useField({ name, validate });
+  const [field, meta] = useField({ name, validate });
 
   const handleChange = useCallback(
     event => {
@@ -48,22 +47,18 @@ const TextField = props => {
     [onBlur]
   );
 
-  const value = valueProp || field.value || "";
-  const helperText = meta.touched || helpers.validateOnMount ? meta.error : "";
-  const error = meta.error && (meta.touched || helpers.validateOnMount);
-
-  useEffect(() => {
-    helpers.setError(validate(value));
-  }, [required]);
+  const value = valueProp || field.value;
+  const helperText = meta.touched ? meta.error : "";
+  const error = meta.touched && Boolean(meta.error);
 
   return (
     <TextFieldMemo
       autoComplete="off"
       fullWidth
-      error={error}
-      helperText={helperText}
       name={name}
       required={required}
+      error={error}
+      helperText={helperText}
       {...others}
       value={value}
       onChange={handleChange}
@@ -73,9 +68,12 @@ const TextField = props => {
 };
 
 TextField.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  requiredMessage: PropTypes.string
 };
 
-TextField.defaultProps = {};
+TextField.defaultProps = {
+  requiredMessage: "REQUIRED_FIELD"
+};
 
 export default TextField;

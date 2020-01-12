@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
+import FormikDemo from "./demos/FormikDemo";
 import BasicDemo from "./demos/BasicDemo";
 import FormFinalResultDemo from "./demos/FormFinalResultDemo";
 import "./App.css";
@@ -11,6 +12,9 @@ function App() {
         <div className="menu">
           <ul>
             <li>
+              <Link to="/pure">Pure</Link>
+            </li>
+            <li>
               <Link to="/basic">Basic</Link>
             </li>
             <li>
@@ -20,6 +24,9 @@ function App() {
         </div>
         <div className="content">
           <Switch>
+            <Route path="/pure">
+              <FormikDemo />
+            </Route>
             <Route path="/basic">
               <BasicDemo />
             </Route>

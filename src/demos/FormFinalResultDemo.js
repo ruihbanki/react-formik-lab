@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useFormik, Form } from "formik";
 import { Grid, Button, Checkbox } from "@material-ui/core";
 import TextField from "../components/TextField";
-import UseFormikForm from "../components/UseFormikForm";
+import UseFormik from "../components/UseFormik";
 import NumberField from "../components/NumberField";
 
 const initialValues = {
   name: "",
-  nickname: ""
+  nickname: "",
+  age: "",
+  cep: "",
+  address: "",
+  email: ""
 };
 
 function validate(values) {
@@ -29,19 +33,19 @@ const FormFinalResultDemo = React.memo(() => {
     validateOnMount: true
   });
 
-  const handleCepBlur = () => {
+  const handleCepBlur = useCallback(() => {
     formik.setValues({
       ...formik.values,
       address: `Address of CEP ${formik.values.cep}`
     });
-  };
+  }, [formik]);
 
-  const [required, setRequired] = useState(true);
+  const [required, setRequired] = useState(false);
 
   return (
     <div>
       <h2>Final result</h2>
-      <UseFormikForm formik={formik}>
+      <UseFormik formik={formik}>
         <Form noValidate>
           <Grid container spacing={2}>
             <Grid item xs={1}>
@@ -49,7 +53,10 @@ const FormFinalResultDemo = React.memo(() => {
                 name="name"
                 label="Name"
                 checked={required}
-                onChange={() => setRequired(r => !r)}
+                onChange={() => {
+                  setRequired(r => !r);
+                  formik.validateForm();
+                }}
               />
               {required ? "dd" : "d"}
             </Grid>
@@ -85,7 +92,7 @@ const FormFinalResultDemo = React.memo(() => {
             </Grid>
           </Grid>
         </Form>
-      </UseFormikForm>
+      </UseFormik>
     </div>
   );
 });

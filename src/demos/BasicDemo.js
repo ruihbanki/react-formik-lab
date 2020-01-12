@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useFormik, Form } from "formik";
 import { Grid, Button, Checkbox } from "@material-ui/core";
-import TextField from "../components/TextField/TextField";
-import UseFormikForm from "../components/UseFormikForm/UseFormikForm";
+import TextField from "../components/TextField";
+import UseFormik from "../components/UseFormik";
 
 const initialValues = {
   name: "",
@@ -23,7 +23,7 @@ const BasicDemo = React.memo(() => {
   return (
     <div>
       <h2>Basic</h2>
-      <UseFormikForm formik={formik}>
+      <UseFormik formik={formik}>
         <Form noValidate>
           <Grid container spacing={2}>
             <Grid item xs={1}>
@@ -55,7 +55,7 @@ const BasicDemo = React.memo(() => {
             </Grid>
           </Grid>
         </Form>
-      </UseFormikForm>
+      </UseFormik>
     </div>
   );
 });

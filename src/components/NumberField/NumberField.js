@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import TextField from "../TextField";
 
 const NumberField = React.memo(props => {
-  const {} = props;
   return <TextField {...props} />;
 });
 
