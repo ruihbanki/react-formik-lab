@@ -70,7 +70,12 @@ const FormFinalResultDemo = React.memo(() => {
               <NumberField name="age" label="Age" required />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="cep" label="CEP" onBlur={handleCepBlur} />
+              <TextField
+                name="cep"
+                label="CEP"
+                onBlur={handleCepBlur}
+                pattern="\d{5}-?\d{3}"
+              />
             </Grid>
             <Grid item xs={2}>
               <TextField name="address" label="Address" />

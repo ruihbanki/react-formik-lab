@@ -10,6 +10,8 @@ const TextField = props => {
     name,
     required,
     requiredMessage,
+    pattern,
+    patternMessage,
     value: valueProp,
     onChange,
     onBlur,
@@ -21,8 +23,11 @@ const TextField = props => {
       if (required && !value) {
         return requiredMessage;
       }
+      if (pattern && !new RegExp(pattern).test(value)) {
+        return patternMessage;
+      }
     },
-    [required]
+    [required, requiredMessage, pattern, patternMessage]
   );
 
   const [field, meta] = useField({ name, validate });
@@ -69,11 +74,15 @@ const TextField = props => {
 
 TextField.propTypes = {
   name: PropTypes.string.isRequired,
-  requiredMessage: PropTypes.string
+  requiredMessage: PropTypes.string,
+  pattern: PropTypes.string,
+  patternMessage: PropTypes.string
 };
 
 TextField.defaultProps = {
-  requiredMessage: "REQUIRED_FIELD"
+  requiredMessage: "REQUIRED_FIELD",
+  pattern: null,
+  patternMessage: "PATTERN_INVALID"
 };
 
 export default TextField;
