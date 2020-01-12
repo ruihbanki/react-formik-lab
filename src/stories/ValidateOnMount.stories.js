@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { action } from "@storybook/addon-actions";
 import { useFormik, Form } from "formik";
-import { Grid, Button, Checkbox, FormControlLabel } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 import TextField from "../components/TextField/TextField";
 import UseFormikForm from "../components/UseFormikForm/UseFormikForm";
 
@@ -14,35 +14,30 @@ const initialValues = {
   nickname: ""
 };
 
-export const DynamicRequired = () => {
+function validate(values) {
+  const errors = {};
+  if (!values.name || values.name.length < 5) {
+    errors.name = "NAME_TO_SHORT";
+  }
+  return errors;
+}
+
+export const ValidateOnMount = () => {
   const formik = useFormik({
     initialValues,
     onSubmit: values => {
       action(values);
-    }
+    },
+    validate,
+    validateOnMount: true
   });
-
-  const [required, setRequired] = useState(false);
 
   return (
     <UseFormikForm formik={formik}>
       <Form noValidate>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name="name"
-                  label="Name"
-                  checked={required}
-                  onChange={() => setRequired(r => !r)}
-                />
-              }
-              label="Required"
-            />
-          </Grid>
           <Grid item xs={2}>
-            <TextField name="name" label="Name" required={required} />
+            <TextField name="name" label="Name" required />
           </Grid>
           <Grid item xs={2}>
             <TextField name="nickname" label="Nickname" />

@@ -42,6 +42,13 @@ const BasicDemo = React.memo(() => {
               <TextField name="nickname" label="Nickname" />
             </Grid>
             <Grid item xs={12}>
+              <Button
+                variant="contained"
+                color="default"
+                onClick={() => formik.resetForm()}
+              >
+                Reset
+              </Button>
               <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>

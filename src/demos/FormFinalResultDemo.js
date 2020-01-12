@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik, Form } from "formik";
-import { Grid, Button } from "@material-ui/core";
-import TextField from "../components/TextField/TextField";
-import UseFormikForm from "../components/UseFormikForm/UseFormikForm";
+import { Grid, Button, Checkbox } from "@material-ui/core";
+import TextField from "../components/TextField";
+import UseFormikForm from "../components/UseFormikForm";
+import NumberField from "../components/NumberField";
 
 const initialValues = {
   name: "",
@@ -11,11 +12,9 @@ const initialValues = {
 
 function validate(values) {
   const errors = {};
-  if (!values.name) {
-    errors.name = "Required";
-  }
-  console.log("validate errros", values, errors);
-
+  // if (!values.name || values.name.length < 5) {
+  //   errors.name = "NAME_TO_SHORT";
+  // }
   return errors;
 }
 
@@ -27,7 +26,7 @@ const FormFinalResultDemo = React.memo(() => {
       formik.setSubmitting(false);
     },
     validate,
-    validateOnMount: false
+    validateOnMount: true
   });
 
   const handleCepBlur = () => {
@@ -37,20 +36,31 @@ const FormFinalResultDemo = React.memo(() => {
     });
   };
 
+  const [required, setRequired] = useState(true);
+
   return (
     <div>
       <h2>Final result</h2>
       <UseFormikForm formik={formik}>
         <Form noValidate>
           <Grid container spacing={2}>
+            <Grid item xs={1}>
+              <Checkbox
+                name="name"
+                label="Name"
+                checked={required}
+                onChange={() => setRequired(r => !r)}
+              />
+              {required ? "dd" : "d"}
+            </Grid>
             <Grid item xs={2}>
-              <TextField name="name" label="Name" required />
+              <TextField name="name" label="Name" required={required} />
             </Grid>
             <Grid item xs={2}>
               <TextField name="nickname" label="Nickname" />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="age" label="Age" required />
+              <NumberField name="age" label="Age" required />
             </Grid>
             <Grid item xs={2}>
               <TextField name="cep" label="CEP" onBlur={handleCepBlur} />

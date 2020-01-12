@@ -40,7 +40,8 @@
           "message": "Use of console prohibited. Use a logger instead. (See logger.ts)"
         }
       ],
-      "@typescript-eslint/no-angle-bracket-type-assertion": "off"
+      "@typescript-eslint/no-angle-bracket-type-assertion": "off",
+      "@typescript-eslint/no-unused-vars": "off"
     }
   },
   "browserslist": {

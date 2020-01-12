@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import BasicDemo from "./demos/BasicDemo";
+import FormFinalResultDemo from "./demos/FormFinalResultDemo";
 import "./App.css";
 
 function App() {
@@ -12,12 +13,18 @@ function App() {
             <li>
               <Link to="/basic">Basic</Link>
             </li>
+            <li>
+              <Link to="/final">Final</Link>
+            </li>
           </ul>
         </div>
         <div className="content">
           <Switch>
             <Route path="/basic">
               <BasicDemo />
+            </Route>
+            <Route path="/final">
+              <FormFinalResultDemo />
             </Route>
           </Switch>
         </div>
