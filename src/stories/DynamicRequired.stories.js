@@ -3,7 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { useFormik, Form } from "formik";
 import { Grid, Button, Checkbox, FormControlLabel } from "@material-ui/core";
 import TextField from "../components/TextField/TextField";
-import UseFormikForm from "../components/UseFormikForm/UseFormikForm";
+import UseFormik from "../components/UseFormik/UseFormik";
 
 export default {
   title: "Examples"
@@ -25,7 +25,7 @@ export const DynamicRequired = () => {
   const [required, setRequired] = useState(false);
 
   return (
-    <UseFormikForm formik={formik}>
+    <UseFormik formik={formik}>
       <Form noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -54,6 +54,6 @@ export const DynamicRequired = () => {
           </Grid>
         </Grid>
       </Form>
-    </UseFormikForm>
+    </UseFormik>
   );
 };

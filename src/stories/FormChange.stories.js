@@ -14,29 +14,24 @@ const initialValues = {
   nickname: ""
 };
 
-const initialTouched = {
-  name: true,
-  nickname: true
-};
+const users = [
+  { name: "John" },
+  { name: "Marie" },
+  { name: "Joe" },
+  { name: "Zulu" }
+];
 
-function validate(values) {
-  const errors = {};
-  if (!values.name || values.name.length < 5) {
-    errors.name = "NAME_TO_SHORT";
-  }
-  return errors;
-}
-
-export const ValidateOnMount = () => {
+export const FormChange = () => {
   const formik = useFormik({
     initialValues,
-    initialTouched,
     onSubmit: values => {
       action(values);
-    },
-    validate,
-    validateOnMount: true
+    }
   });
+
+  const usersFiltered = users.filter(user =>
+    user.name.toUpperCase().includes(formik.values.name.toUpperCase())
+  );
 
   return (
     <UseFormik formik={formik}>
@@ -45,16 +40,13 @@ export const ValidateOnMount = () => {
           <Grid item xs={2}>
             <TextField name="name" label="Name" required />
           </Grid>
-          <Grid item xs={2}>
-            <TextField name="nickname" label="Nickname" required />
-          </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
-          </Grid>
         </Grid>
       </Form>
+      <ul>
+        {usersFiltered.map(user => (
+          <li key={user.name}>{user.name}</li>
+        ))}
+      </ul>
     </UseFormik>
   );
 };
