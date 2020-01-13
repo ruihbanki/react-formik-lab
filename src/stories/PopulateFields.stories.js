@@ -18,9 +18,7 @@ const initialValues = {
 export const PopulateFields = () => {
   const formik = useFormik({
     initialValues,
-    onSubmit: values => {
-      action(values);
-    }
+    onSubmit: action("submit")
   });
 
   const handleCepBlur = () => {

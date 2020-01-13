@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { action } from "@storybook/addon-actions";
-import { useFormik, Form } from "formik";
+import { Form, Formik } from "formik";
 import { Grid, Button, Checkbox, FormControlLabel } from "@material-ui/core";
 import FieldText from "../components/FieldText/FieldText";
-import UseFormik from "../components/UseFormik/UseFormik";
 
 export default {
   title: "Examples"
@@ -15,17 +14,10 @@ const initialValues = {
 };
 
 export const DynamicRequired = () => {
-  const formik = useFormik({
-    initialValues,
-    onSubmit: values => {
-      action(values);
-    }
-  });
-
   const [required, setRequired] = useState(false);
 
   return (
-    <UseFormik formik={formik}>
+    <Formik initialValues={initialValues} onSubmit={action("submit")}>
       <Form noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -54,6 +46,6 @@ export const DynamicRequired = () => {
           </Grid>
         </Grid>
       </Form>
-    </UseFormik>
+    </Formik>
   );
 };

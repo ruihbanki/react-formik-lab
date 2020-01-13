@@ -1,9 +1,8 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { useFormik, Form } from "formik";
+import { Form, Formik } from "formik";
 import { Grid, Button } from "@material-ui/core";
 import FieldText from "../components/FieldText/FieldText";
-import UseFormik from "../components/UseFormik/UseFormik";
 
 export default {
   title: "Examples"
@@ -15,15 +14,8 @@ const initialValues = {
 };
 
 export const Basic = () => {
-  const formik = useFormik({
-    initialValues,
-    onSubmit: values => {
-      action(values);
-    }
-  });
-
   return (
-    <UseFormik formik={formik}>
+    <Formik initialValues={initialValues} onSubmit={action("submit")}>
       <Form noValidate>
         <Grid container spacing={2}>
           <Grid item xs={2}>
@@ -39,6 +31,6 @@ export const Basic = () => {
           </Grid>
         </Grid>
       </Form>
-    </UseFormik>
+    </Formik>
   );
 };

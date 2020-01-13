@@ -1,9 +1,8 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { useFormik, Form } from "formik";
+import { Form, Formik } from "formik";
 import { Grid, Button } from "@material-ui/core";
 import FieldText from "../components/FieldText/FieldText";
-import UseFormik from "../components/UseFormik/UseFormik";
 
 export default {
   title: "Examples"
@@ -15,37 +14,28 @@ const initialValues = {
 };
 
 export const Reset = () => {
-  const formik = useFormik({
-    initialValues,
-    onSubmit: values => {
-      action(values);
-    }
-  });
-
   return (
-    <UseFormik formik={formik}>
-      <Form noValidate>
-        <Grid container spacing={2}>
-          <Grid item xs={2}>
-            <FieldText name="name" label="Name" required />
+    <Formik initialValues={initialValues} onSubmit={action("submit")}>
+      {({ resetForm }) => (
+        <Form noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={2}>
+              <FieldText name="name" label="Name" required />
+            </Grid>
+            <Grid item xs={2}>
+              <FieldText name="nickname" label="Nickname" />
+            </Grid>
+            <Grid item xs={12}>
+              <Button variant="contained" color="default" onClick={resetForm}>
+                Reset
+              </Button>
+              <Button variant="contained" color="primary" type="submit">
+                Submit
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={2}>
-            <FieldText name="nickname" label="Nickname" />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="default"
-              onClick={formik.resetForm}
-            >
-              Reset
-            </Button>
-            <Button variant="contained" color="primary" type="submit">
-              Submit
-            </Button>
-          </Grid>
-        </Grid>
-      </Form>
-    </UseFormik>
+        </Form>
+      )}
+    </Formik>
   );
 };
