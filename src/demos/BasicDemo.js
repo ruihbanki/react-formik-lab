@@ -3,10 +3,14 @@ import { useFormik, Form } from "formik";
 import { Grid, Button, Checkbox } from "@material-ui/core";
 import FieldText from "../components/FieldText";
 import UseFormik from "../components/UseFormik";
+import FieldNumber from "../components/FieldNumber/FieldNumber";
+import FieldCep from "../components/FieldCep/FieldCep";
 
 const initialValues = {
   name: "",
-  nickname: ""
+  nickname: "",
+  age: null,
+  cep: ""
 };
 
 const BasicDemo = React.memo(() => {
@@ -40,6 +44,12 @@ const BasicDemo = React.memo(() => {
             </Grid>
             <Grid item xs={2}>
               <FieldText name="nickname" label="Nickname" />
+            </Grid>
+            <Grid item xs={2}>
+              <FieldNumber name="age" label="Age" />
+            </Grid>
+            <Grid item xs={2}>
+              <FieldCep name="cep" label="CEP" />
             </Grid>
             <Grid item xs={12}>
               <Button

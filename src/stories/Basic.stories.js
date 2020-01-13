@@ -2,7 +2,8 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Form, Formik } from "formik";
 import { Grid, Button } from "@material-ui/core";
-import FieldText from "../components/FieldText/FieldText";
+import FieldText from "../components/FieldText";
+import FieldNumber from "../components/FieldNumber";
 
 export default {
   title: "Examples"
@@ -10,7 +11,8 @@ export default {
 
 const initialValues = {
   name: "",
-  nickname: ""
+  nickname: "",
+  age: 12
 };
 
 export const Basic = () => {
@@ -23,6 +25,9 @@ export const Basic = () => {
           </Grid>
           <Grid item xs={2}>
             <FieldText name="nickname" label="Nickname" />
+          </Grid>
+          <Grid item xs={2}>
+            <FieldNumber name="age" label="Age" />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" type="submit">

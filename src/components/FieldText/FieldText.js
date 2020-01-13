@@ -10,36 +10,38 @@ const FieldText = props => {
     name,
     required,
     requiredMessage,
-    pattern,
-    patternMessage,
+    validate: validateProp,
     value: valueProp,
+    parse,
+    format,
     onChange,
     onBlur,
     ...others
   } = props;
 
-  const validate = useCallback(
+  const validateInternal = useCallback(
     value => {
       if (required && !value) {
         return requiredMessage;
       }
-      if (pattern && value && !new RegExp(pattern).test(value)) {
-        return patternMessage;
-      }
     },
-    [required, requiredMessage, pattern, patternMessage]
+    [required, requiredMessage]
   );
 
-  const [field, meta] = useField({ name, validate });
+  const [field, meta, helpers] = useField({
+    name,
+    validate: validateProp || validateInternal
+  });
 
   const handleChange = useCallback(
     event => {
-      field.onChange(event);
+      const value = parse(event.target.value);
+      helpers.setValue(value);
       if (onChange) {
         onChange(event);
       }
     },
-    [onChange]
+    [parse, onChange]
   );
 
   const handleBlur = useCallback(
@@ -52,7 +54,7 @@ const FieldText = props => {
     [onBlur]
   );
 
-  const value = valueProp || field.value;
+  const value = format(valueProp || field.value);
   const helperText = meta.touched ? meta.error : "";
   const error = meta.touched && Boolean(meta.error);
 
@@ -75,14 +77,16 @@ const FieldText = props => {
 FieldText.propTypes = {
   name: PropTypes.string.isRequired,
   requiredMessage: PropTypes.string,
-  pattern: PropTypes.string,
-  patternMessage: PropTypes.string
+  validate: PropTypes.func,
+  format: PropTypes.func,
+  parse: PropTypes.func
 };
 
 FieldText.defaultProps = {
   requiredMessage: "REQUIRED_FIELD",
-  pattern: null,
-  patternMessage: "INVALID_PATTERN"
+  validate: undefined,
+  format: v => v,
+  parse: v => v
 };
 
 export default FieldText;
