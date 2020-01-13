@@ -23,7 +23,7 @@ const FieldText = props => {
       if (required && !value) {
         return requiredMessage;
       }
-      if (pattern && !new RegExp(pattern).test(value)) {
+      if (pattern && value && !new RegExp(pattern).test(value)) {
         return patternMessage;
       }
     },
@@ -82,7 +82,7 @@ FieldText.propTypes = {
 FieldText.defaultProps = {
   requiredMessage: "REQUIRED_FIELD",
   pattern: null,
-  patternMessage: "PATTERN_INVALID"
+  patternMessage: "INVALID_PATTERN"
 };
 
 export default FieldText;
