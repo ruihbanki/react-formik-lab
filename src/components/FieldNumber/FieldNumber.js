@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import FieldText from "../FieldText";
 
 const FieldNumber = React.memo(props => {
+  const { min, max, minMessage, maxMessage, ...others } = props;
+
   const parse = useCallback(text => {
     if (!text) {
       return null;
@@ -18,17 +20,39 @@ const FieldNumber = React.memo(props => {
     return number;
   }, []);
 
-  return <FieldText parse={parse} format={format} {...props} />;
+  const validate = useCallback(
+    value => {
+      if (!value) {
+        return;
+      }
+      const number = parse(value);
+      if (number < min) {
+        return minMessage;
+      }
+      if (number > max) {
+        return maxMessage;
+      }
+    },
+    [parse, min, max, minMessage, maxMessage]
+  );
+
+  return (
+    <FieldText parse={parse} format={format} validate={validate} {...others} />
+  );
 });
 
 FieldNumber.propTypes = {
   min: PropTypes.number,
-  max: PropTypes.number
+  max: PropTypes.number,
+  minMessage: PropTypes.string,
+  maxMessage: PropTypes.string
 };
 
 FieldNumber.defaultProps = {
   min: 0,
-  max: Infinity
+  max: Infinity,
+  minMessage: "VALUE_LESS_THAN_MIN",
+  maxMessage: "VALUE_GREATER_THAN_MAX"
 };
 
 export default FieldNumber;

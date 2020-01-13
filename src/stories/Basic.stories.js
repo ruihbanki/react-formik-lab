@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { Grid, Button } from "@material-ui/core";
 import FieldText from "../components/FieldText";
 import FieldNumber from "../components/FieldNumber";
+import FieldCep from "../components/FieldCep";
 
 export default {
   title: "Examples"
@@ -12,7 +13,8 @@ export default {
 const initialValues = {
   name: "",
   nickname: "",
-  age: 12
+  age: null,
+  cep: ""
 };
 
 export const Basic = () => {
@@ -27,7 +29,10 @@ export const Basic = () => {
             <FieldText name="nickname" label="Nickname" />
           </Grid>
           <Grid item xs={2}>
-            <FieldNumber name="age" label="Age" />
+            <FieldNumber name="age" min={18} max={60} label="Age" />
+          </Grid>
+          <Grid item xs={2}>
+            <FieldCep name="cep" label="CEP" />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" type="submit">
