@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { TextField } from "@material-ui/core";
-import { useField } from "formik";
+import { useField, useFormikContext } from "formik";
 
 const TextFieldMemo = React.memo(props => <TextField {...props} />);
 
@@ -41,7 +41,7 @@ const FieldText = props => {
         onChange(event);
       }
     },
-    [parse, onChange]
+    [parse, onChange, name]
   );
 
   const handleBlur = useCallback(
