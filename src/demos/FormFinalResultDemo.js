@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import { useFormik, Form } from "formik";
 import { Grid, Button, Checkbox } from "@material-ui/core";
-import TextField from "../components/TextField";
+import FieldText from "../components/FieldText";
 import UseFormik from "../components/UseFormik";
-import NumberField from "../components/NumberField";
+import FieldNumber from "../components/FieldNumber";
 
 const initialValues = {
   name: "",
@@ -58,19 +58,19 @@ const FormFinalResultDemo = React.memo(() => {
                   formik.validateForm();
                 }}
               />
-              {required ? "dd" : "d"}
+              Required
             </Grid>
             <Grid item xs={2}>
-              <TextField name="name" label="Name" required={required} />
+              <FieldText name="name" label="Name" required={required} />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="nickname" label="Nickname" />
+              <FieldText name="nickname" label="Nickname" />
             </Grid>
             <Grid item xs={2}>
-              <NumberField name="age" label="Age" required />
+              <FieldNumber name="age" label="Age" required />
             </Grid>
             <Grid item xs={2}>
-              <TextField
+              <FieldText
                 name="cep"
                 label="CEP"
                 onBlur={handleCepBlur}
@@ -78,10 +78,10 @@ const FormFinalResultDemo = React.memo(() => {
               />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="address" label="Address" />
+              <FieldText name="address" label="Address" />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="email" label="Email" />
+              <FieldText name="email" label="Email" />
             </Grid>
             <Grid item xs={12}>
               <Button

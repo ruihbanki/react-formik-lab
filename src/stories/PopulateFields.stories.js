@@ -2,8 +2,9 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { useFormik, Form } from "formik";
 import { Grid, Button } from "@material-ui/core";
-import TextField from "../components/TextField/TextField";
-import UseFormik from "../components/UseFormik/UseFormik";
+import FieldText from "../components/FieldText";
+import FieldCep from "../components/FieldCep";
+import UseFormik from "../components/UseFormik";
 
 export default {
   title: "Examples"
@@ -34,10 +35,10 @@ export const PopulateFields = () => {
       <Form noValidate>
         <Grid container spacing={2}>
           <Grid item xs={2}>
-            <TextField name="cep" label="CEP" onBlur={handleCepBlur} />
+            <FieldCep name="cep" label="CEP" onBlur={handleCepBlur} />
           </Grid>
           <Grid item xs={2}>
-            <TextField name="address" label="Address" />
+            <FieldText name="address" label="Address" />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" type="submit">

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useFormik, Form } from "formik";
 import { Grid, Button, Checkbox } from "@material-ui/core";
-import TextField from "../components/TextField";
+import FieldText from "../components/FieldText";
 import UseFormik from "../components/UseFormik";
 
 const initialValues = {
@@ -33,13 +33,13 @@ const BasicDemo = React.memo(() => {
                 checked={required}
                 onChange={() => setRequired(r => !r)}
               />
-              {required ? "dd" : "d"}
+              Required
             </Grid>
             <Grid item xs={2}>
-              <TextField name="name" label="Name" required={required} />
+              <FieldText name="name" label="Name" required={required} />
             </Grid>
             <Grid item xs={2}>
-              <TextField name="nickname" label="Nickname" />
+              <FieldText name="nickname" label="Nickname" />
             </Grid>
             <Grid item xs={12}>
               <Button

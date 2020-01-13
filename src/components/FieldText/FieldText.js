@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
-import { TextField as MuiTextField } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { useField } from "formik";
 
-const TextFieldMemo = React.memo(props => <MuiTextField {...props} />);
+const TextFieldMemo = React.memo(props => <TextField {...props} />);
 
-const TextField = props => {
+const FieldText = props => {
   const {
     name,
     required,
@@ -72,17 +72,17 @@ const TextField = props => {
   );
 };
 
-TextField.propTypes = {
+FieldText.propTypes = {
   name: PropTypes.string.isRequired,
   requiredMessage: PropTypes.string,
   pattern: PropTypes.string,
   patternMessage: PropTypes.string
 };
 
-TextField.defaultProps = {
+FieldText.defaultProps = {
   requiredMessage: "REQUIRED_FIELD",
   pattern: null,
   patternMessage: "PATTERN_INVALID"
 };
 
-export default TextField;
+export default FieldText;

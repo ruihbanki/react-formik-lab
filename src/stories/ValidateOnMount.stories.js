@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { useFormik, Form } from "formik";
 import { Grid, Button } from "@material-ui/core";
-import TextField from "../components/TextField/TextField";
+import FieldText from "../components/FieldText/FieldText";
 import UseFormik from "../components/UseFormik/UseFormik";
 
 export default {
@@ -43,10 +43,10 @@ export const ValidateOnMount = () => {
       <Form noValidate>
         <Grid container spacing={2}>
           <Grid item xs={2}>
-            <TextField name="name" label="Name" required />
+            <FieldText name="name" label="Name" required />
           </Grid>
           <Grid item xs={2}>
-            <TextField name="nickname" label="Nickname" required />
+            <FieldText name="nickname" label="Nickname" required />
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" color="primary" type="submit">
